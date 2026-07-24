@@ -1,0 +1,35 @@
+generated: '2026-07-24'
+method: searched
+source: https://guides.gitbook.io/integrationguide/references/code-references/integration-libraries
+note: >-
+  Cardstream ships two client-side (browser) JavaScript component libraries that
+  are distinct from the server-side SDKs in packages/. Both are loaded from the
+  Gateway host under /sdk/web/v1/js/ (the docs use gateway.example.com as a
+  placeholder for the merchant's assigned Gateway host, e.g. gateway.cardstream.com).
+families:
+  - family: Hosted Payment Fields
+    loader: /sdk/web/v1/js/hostedfields.min.js
+    global: window.hostedFields
+    jquery_plugin: hostedForm()
+    description: >-
+      Client-side library that replaces only the sensitive cardholder-data input
+      fields (card number, expiry, CVV) with Gateway-hosted iframe fields while the
+      rest of the payment form stays on the merchant site. On submit the Gateway
+      returns a paymentToken representing the card data, which the merchant then
+      processes via the Direct Integration - keeping raw cardholder data out of
+      the merchant's PCI scope.
+    key_apis: [window.hostedFields.classes.Form, window.hostedFields.classes.Field, setMerchantID, setStylesheet, setStyle, setPlaceholder]
+    config: data-hostedfields JSON attribute (autoSetup, autoSubmit, tokenise, stylesheets, fields, classes)
+    docs: https://guides.gitbook.io/integrationguide/references/code-references/integration-libraries/hosted-payment-fields-library
+  - family: Hosted Payment Page (modal/lightbox)
+    loader: /sdk/web/v1/js/hostedforms.min.js
+    global: window.hostedForms
+    jquery_plugin: hostedForm()
+    description: >-
+      Client-side script that opens the Hosted Payment Page in a modal lightbox
+      overlay (a semi-opaque full-screen iframe) over the merchant's site, rather
+      than a full-page redirect. On completion the browser is redirected to the
+      merchant's redirectURL.
+    key_apis: [window.hostedForms construction method, data-hostedform-modal, data-hostedform-autosubmit]
+    config: data.modal / data.submit.type properties or data-hostedform-* attributes
+    docs: https://guides.gitbook.io/integrationguide/references/code-references/integration-libraries/hosted-payment-page-library

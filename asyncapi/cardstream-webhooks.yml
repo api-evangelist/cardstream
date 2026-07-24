@@ -1,0 +1,33 @@
+generated: '2026-07-24'
+method: searched
+source: https://guides.gitbook.io/integrationguide/gateway-functionality/features/receipts-and-notifications
+type: Webhooks
+note: >-
+  Cardstream does not publish an AsyncAPI document and has no named event catalog.
+  Asynchronous notification is handled via merchant-configured callback URLs (the
+  "Receipts and Notifications" feature). This artifact captures the webhook/callback
+  surface; there is no streaming or pub/sub event API to model as AsyncAPI.
+spec_type: none
+webhooks:
+  transport: HTTP POST
+  content_type: application/x-www-form-urlencoded
+  payload: >-
+    Same URL-encoded response fields as the synchronous transaction response
+    (responseCode, responseMessage, transaction identifiers, etc.).
+  signing: >-
+    When message signing is enabled on the Merchant Account, data POSTed to any
+    callback URL is signed (SHA-512 signature field), letting the merchant verify
+    authenticity and integrity.
+  channels:
+    - name: callbackURL
+      direction: gateway-to-merchant
+      description: >-
+        Server-to-server notification POSTed to the merchant's configured
+        callbackURL, used to update backend systems independently of the browser
+        redirectURL (recommended for Hosted Integration state updates).
+    - name: redirectURL
+      direction: gateway-to-browser
+      description: >-
+        The cardholder's browser is POSTed the signed transaction result to the
+        merchant's redirectURL after a Hosted Payment Page completes.
+  docs: https://guides.gitbook.io/integrationguide/gateway-functionality/features/receipts-and-notifications

@@ -1,0 +1,34 @@
+generated: '2026-07-24'
+method: searched
+source: https://guides.gitbook.io/integrationguide/readme/changelog
+docs: https://guides.gitbook.io/integrationguide/readme/changelog
+note: >-
+  Cardstream maintains a dated changelog for its Integration Guide. The scheme is
+  a documented guide version (e.g. 4.24). Recent window captured below; the live
+  changelog is the source of truth for full history back to V1 (2019-11-30).
+scheme: guide-version
+current_version: V4.24
+current_date: '2026-05-25'
+entries:
+  - {version: "4.24", date: '2026-05-25', highlights: ["Added new General Error Code 65580"]}
+  - {version: "4.23", date: '2026-04-22', highlights: ["Updated SCA exemptions", "Added schemeMerchantID to missing/invalid request field error codes", "Updated Hosted Payment Fields Library code"]}
+  - {version: "4.22", date: '2026-04-21', highlights: ["Risk Checking updated from Kount Command to Kount 360"]}
+  - {version: "4.21", date: '2026-02-03', highlights: ["Replaced formAllowCancel with formCancelRequired in Hosted Payment Page Options", "Updated Hosted Forms Library jQuery example"]}
+  - {version: "4.20", date: '2026-01-08', highlights: ["Updated Integration Testing section"]}
+  - {version: "4.19", date: '2025-11-27', highlights: ["Added Click to Pay section"]}
+  - {version: "4.18", date: '2025-11-03', breaking: true, highlights: ["Added OBMC (Open Banking Mastercard) section", "Removed Nuapay section", "Removed PBBA section"]}
+  - {version: "4.17", date: '2025-10-20', highlights: ["Added 341 (6P) and 46 response codes"]}
+  - {version: "4.16", date: '2025-09-24', breaking: true, highlights: ["Nuapay integration deprecated from 2025-11-17"]}
+  - {version: "4.15", date: '2025-07-06', highlights: ["Added new Pay Button section"]}
+  - {version: "4.14", date: '2025-06-27', highlights: ["Amended Capture text in Supported Actions"]}
+  - {version: "4.13", date: '2025-05-18', highlights: ["Updated link formatting"]}
+  - {version: "4.12", date: '2025-04-24', highlights: ["Added response codes 292 (5C) and 440 (9G)"]}
+  - {version: "4.11", date: '2025-04-08', highlights: ["Updated 3-D Secure Enrolment/Authentication Only section"]}
+  - {version: "4.10", date: '2025-03-31', highlights: ["Amended text for General Response Code 65579"]}
+  - {version: "4.09", date: '2025-02-27', highlights: ["Updated Test Amounts"]}
+  - {version: "4.08", date: '2025-02-12', highlights: ["Added Blik to PPRO Payment Method Tags"]}
+  - {version: "4.07", date: '2025-02-10', highlights: ["Added originalResponseCode/Status/Message to Supported Actions", "Nomupay checkout option fixes"]}
+milestones:
+  first_version: {version: "1", date: '2019-11-30', note: "New guide replacing separate Hosted and Direct Integration Guides"}
+  online: {version: "4.00", date: '2023-09-07', note: "Integration Guide moved online"}
+  threeds1_removed: {version: "3", date: '2022-05-17', note: "All 3-D Secure v1 references removed"}

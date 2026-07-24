@@ -1,0 +1,90 @@
+generated: '2026-07-24'
+method: searched
+source: https://guides.gitbook.io/integrationguide/references/response-and-advice-codes/response-codes/authorisation-response-codes
+docs: https://guides.gitbook.io/integrationguide/references/response-and-advice-codes
+note: >-
+  Acquirer authorisation (decline) codes returned by the Cardstream Gateway. These
+  are the ISO 8583 (1987) 2-character response codes, mapped to numeric values
+  (original 2-letter code shown in parentheses where non-numeric). The code is
+  returned in the responseCode field; the original acquirer code/message are
+  echoed in acquirerResponseCode / acquirerResponseMessage. Retry guidance is
+  returned in rtAdviceCode (+ rtRetryAfter). Complements
+  errors/cardstream-problem-types.yml (Gateway 65xxx/66xxx errors).
+envelope:
+  response_code_field: responseCode
+  response_message_field: responseMessage
+  acquirer_code_field: acquirerResponseCode
+  acquirer_message_field: acquirerResponseMessage
+  retry_advice_field: rtAdviceCode
+  retry_after_field: rtRetryAfter
+approval_codes:
+  - {code: 0, meaning: Successful approval/completion}
+  - {code: 10, meaning: Approval for partial amount}
+  - {code: 11, meaning: Approved VIP}
+  - {code: 16, meaning: Approved, Update Track 3}
+decline_codes:
+  - {code: 1, meaning: Refer to card issuer, action: refer}
+  - {code: 2, meaning: Refer to card issuer special condition, action: refer}
+  - {code: 3, meaning: Invalid merchant or service provider, action: do-not-retry}
+  - {code: 4, meaning: Pickup card, action: do-not-retry}
+  - {code: 5, meaning: Do not honor, action: do-not-retry}
+  - {code: 6, meaning: Error, action: retry}
+  - {code: 12, meaning: Invalid transaction, action: do-not-retry}
+  - {code: 13, meaning: Invalid amount, action: fix-and-retry}
+  - {code: 14, meaning: Invalid card number/account number, action: fix-and-retry}
+  - {code: 15, meaning: No such issuer, action: do-not-retry}
+  - {code: 30, meaning: Format error, action: fix-and-retry}
+  - {code: 33, meaning: Pickup card (expired), action: do-not-retry}
+  - {code: 34, meaning: Pickup card (suspected fraud), action: do-not-retry}
+  - {code: 41, meaning: Pickup card (lost card), action: do-not-retry}
+  - {code: 43, meaning: Pickup card (stolen card), action: do-not-retry}
+  - {code: 45, meaning: Account closed, action: do-not-retry}
+  - {code: 46, meaning: Account closed, action: do-not-retry}
+  - {code: 51, meaning: Insufficient funds, action: retry-later}
+  - {code: 54, meaning: Expired card, action: fix-and-retry}
+  - {code: 55, meaning: Incorrect PIN, action: fix-and-retry}
+  - {code: 57, meaning: Transaction not permitted to cardholder, action: do-not-retry}
+  - {code: 58, meaning: Transaction not allowed at terminal, action: do-not-retry}
+  - {code: 59, meaning: Suspected fraud, action: do-not-retry}
+  - {code: 61, meaning: Exceeds withdrawal amount limit, action: retry-later}
+  - {code: 62, meaning: Restricted card, action: do-not-retry}
+  - {code: 63, meaning: Security violation, action: do-not-retry}
+  - {code: 65, meaning: SCA Required (previously exceeds withdrawal limit), action: sca-soft-decline}
+  - {code: 75, meaning: Allowable number of PIN tries exceeded, action: do-not-retry}
+  - {code: 82, meaning: Negative CAM/dCVV/iCVV/CVV results, action: fix-and-retry}
+  - {code: 88, meaning: Unable to authorise, action: retry-later}
+  - {code: 91, meaning: Issuer unavailable or switch inoperative, action: retry-later}
+  - {code: 93, meaning: Transaction cannot be completed - violation of law, action: do-not-retry}
+  - {code: 94, meaning: Duplicate transaction, action: do-not-retry}
+  - {code: 96, meaning: System malfunction, action: retry-later}
+  - {code: 97, meaning: Security breach, action: do-not-retry}
+  - {code: "292 (5C)", meaning: Transaction not supported/blocked by issuer, action: do-not-retry}
+  - {code: "341 (6P)", meaning: Verification Failure, action: fix-and-retry}
+  - {code: "440 (9G)", meaning: Blocked by cardholder/contact cardholder, action: contact-cardholder}
+  - {code: "893 (M1)", meaning: Cannot authorise at this time (Life cycle), action: retry-later}
+  - {code: "894 (M2)", meaning: Cannot authorise at this time (Policy), action: do-not-retry}
+  - {code: "895 (M3)", meaning: Cannot authorise at this time (Fraud/Security), action: do-not-retry}
+  - {code: "935 (N7)", meaning: Decline for CVV2 failure, action: fix-and-retry}
+  - {code: "936 (N8)", meaning: Transaction amount greater than pre-authorised approved amount, action: fix-and-retry}
+  - {code: "1037 (Q1)", meaning: Card Authentication failed, action: do-not-retry}
+  - {code: "1072 (R0)", meaning: Stop Payment Order, action: do-not-retry}
+  - {code: "1073 (R1)", meaning: Revocation of Authorization Order, action: do-not-retry}
+  - {code: "1075 (R3)", meaning: Revocation of All Authorizations Order, action: do-not-retry}
+  - {code: "1365 (Z5)", meaning: Valid account but amount not supported, action: fix-and-retry}
+  - {code: "1366 (Z6)", meaning: Invalid use of MCC - correct and reattempt, action: fix-and-retry}
+retry_advice_codes:
+  field: rtAdviceCode
+  docs: https://guides.gitbook.io/integrationguide/references/response-and-advice-codes/retry-transaction-advice-codes
+  codes:
+    - {code: 0, advice: No advice code provided; retry decision is up to the merchant}
+    - {code: 1, advice: Retry after updating payment method details (new expiry/CVV etc.)}
+    - {code: 2, advice: Retry after rtRetryAfter timestamp (or 72 hours if not provided)}
+    - {code: 3, advice: Do not retry; contact cardholder for an alternative payment method}
+    - {code: 4, advice: Do not retry; recurring agreement cancelled by cardholder}
+sca_soft_decline:
+  code: 65
+  meaning: SCA Required
+  note: >-
+    Soft decline requiring Strong Customer Authentication via 3-D Secure. Re-attempt
+    the payment with SCA/3DS authentication. See PSD2 SCA Compliance and SCA
+    Soft-Declines sections.

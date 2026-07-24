@@ -1,0 +1,60 @@
+generated: '2026-07-24'
+method: searched
+source: https://guides.gitbook.io/integrationguide/getting-started/setting-up-your-integration/integration-details
+note: >-
+  Cross-cutting request/response semantics for the Cardstream Gateway. The Gateway
+  is an HTTP POST application/x-www-form-urlencoded form-post API (not JSON/REST);
+  responses are URL-encoded name/value pairs. Nested/complex fields use the PHP
+  http_build_query "record" format (e.g. threeDSRequest[field]).
+authentication:
+  style: merchantID + optional merchantPwd + SHA-512 message signing + IP allow-list
+  ref: authentication/cardstream-authentication.yml
+transport:
+  method: POST
+  content_type: application/x-www-form-urlencoded
+  response_format: url-encoded name/value pairs
+  field_format: PHP http_build_query record format for nested fields
+  post_parameter_limit: documented per host (HTTP Requests section)
+idempotency:
+  supported: true
+  mechanism: duplicate-transaction-checking
+  window_field: duplicateDelay
+  window_default_seconds: 300
+  window_range_seconds: [0, 9999]
+  disable_value: 0
+  correlation_field: transactionUnique
+  comparison_fields: [merchantID, action, type, amount, transactionUnique, currencyCode, xref, cardNumber]
+  duplicate_response_code: 65554
+  description: >-
+    Duplicate transaction checking prevents a request from processing more than
+    once (e.g. a refreshed checkout page). Each transaction may set duplicateDelay
+    (0-9999s, default 300s) as the window over which prior transactions are
+    compared on the fields above; a match returns responseCode 65554 (REQUEST
+    DUPLICATE). transactionUnique is the merchant-supplied correlation/idempotency
+    token included in the comparison and echoed on the response.
+integrity:
+  signing: SHA-512 hash over ASCII-field-name-sorted, URL-encoded request plus per-account secret
+  signed_responses: true
+  signed_callbacks: true
+  ref: https://guides.gitbook.io/integrationguide/references/feature-references/sample-signature-calculation
+pagination:
+  supported: false
+  note: >-
+    Single-transaction request/response model. The Batch Integration submits many
+    transactions in one multipart/mixed POST and returns a batch reference used to
+    download a status file rather than a paged collection.
+request_tracing:
+  fields: [transactionUnique, orderRef, xref]
+  note: transactionUnique (merchant correlation), orderRef (merchant order ref), xref (Gateway cross reference to a prior transaction)
+error_envelope:
+  response_code_field: responseCode
+  response_message_field: responseMessage
+  acquirer_fields: [acquirerResponseCode, acquirerResponseMessage]
+  retry_fields: [rtAdviceCode, rtRetryAfter]
+  refs: [errors/cardstream-problem-types.yml, errors/cardstream-decline-codes.yml]
+versioning:
+  scheme: documented guide version (currently V4.24) + dated changelog; no API version in the URL path
+  ref: changelog/cardstream-changelog.yml
+rate_limiting:
+  signaled: false
+  note: No documented rate-limit response headers; abuse controls are IP allow-lists and Velocity Control System (VCS).

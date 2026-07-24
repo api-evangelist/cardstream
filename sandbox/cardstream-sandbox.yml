@@ -1,0 +1,68 @@
+generated: '2026-07-24'
+method: searched
+source: https://guides.gitbook.io/integrationguide/references/feature-references/integration-testing
+note: >-
+  Cardstream test Merchant Accounts connect to a Simulator (not a live acquirer)
+  and to a 3-D Secure Product Integration Testing (PIT) system. Test Merchant
+  Account IDs are issued during onboarding. All values below are published
+  verbatim in the integration guide's Integration Testing section and are for the
+  Simulator only - test cards are rejected on production accounts (responseCode
+  65566), and production cards return 66311 on test accounts.
+modes:
+  test: Simulator + 3DS PIT; test Merchant Account IDs issued at onboarding
+  live: real acquirer + production 3DS
+  separation: separate test vs live Merchant Account IDs
+test_amount_triggers:
+  note: >-
+    On test accounts the minor-unit transaction amount selects the simulated
+    authorisation and settlement outcome. Any amount outside these ranges returns
+    responseCode 66311 (Invalid Test Amount).
+  ranges:
+    - {min_minor: 100, max_minor: 2499, auth: "0 (AUTH CODE)", settlement: ACCEPTED}
+    - {min_minor: 2500, max_minor: 4999, auth: "0 (AUTH CODE)", settlement: REJECTED}
+    - {min_minor: 5000, max_minor: 7499, auth: "1 CARD REFERRED then 0 AUTHCODE", settlement: ACCEPTED}
+    - {min_minor: 7500, max_minor: 9999, auth: "1 CARD REFERRED then 0 AUTHCODE", settlement: REJECTED}
+    - {min_minor: 10000, max_minor: 14999, auth: "5 CARD DECLINED", settlement: N/A}
+    - {min_minor: 15000, max_minor: 19999, auth: "4 CARD DECLINED - KEEP CARD", settlement: N/A}
+    - {min_minor: 20000, max_minor: 24999, auth: "65 SCA REQUIRED then 0 AUTH CODE", settlement: ACCEPTED}
+    - {min_minor: 25000, max_minor: 29999, auth: "65 SCA REQUIRED then 5 CARD DECLINED", settlement: N/A}
+  sca_soft_decline_range: "20000-29999 (eligible transactions return responseCode 65 SCA REQUIRED)"
+  amount_override: >-
+    Set the Cardholder Name to 'Test [N]' where N is the pounds value to trigger
+    (e.g. 'Test [20]' triggers the 100-2499 minor-unit ACCEPTED range regardless
+    of the submitted amount).
+test_card_expiry: December of the current year (two-digit), unless simulating 3DS status via expiry month
+test_cards:
+  - {scheme: Visa Credit, number: "4929 4212 3460 0821", cvv: "356"}
+  - {scheme: Visa Credit, number: "4543 0599 9999 9982", cvv: "110", note: "no 3DS Method Data"}
+  - {scheme: Visa Credit, number: "4543 0599 9999 9990", cvv: "689", note: "no 3DS Method Data"}
+  - {scheme: Visa Debit, number: "4539 7910 0173 0106", cvv: "289"}
+  - {scheme: Visa Debit, number: "4462 0000 0000 0003", cvv: "672"}
+  - {scheme: Electron, number: "4917 4800 0000 0008", cvv: "009"}
+  - {scheme: Mastercard Credit, number: "5301 2500 7000 0191", cvv: "419"}
+  - {scheme: Mastercard Credit, number: "5413 3390 0000 1000", cvv: "304"}
+  - {scheme: Mastercard Credit, number: "5434 8499 9999 9951", cvv: "470", note: "no 3DS Method Data"}
+  - {scheme: Mastercard Credit, number: "5434 8499 9999 9993", cvv: "557", note: "no 3DS Method Data"}
+  - {scheme: Mastercard Debit, number: "5573 4712 3456 7898", cvv: "159"}
+  - {scheme: JCB, number: "3540 5999 9999 1047", cvv: "209"}
+  - {scheme: American Express, number: "3742 4545 5400 001", cvv: "4887"}
+  - {scheme: Diners Club, number: "3643 2685 2602 94", cvv: "111", note: "AVS not supported; use a MID with AVS off"}
+threeds2_simulation:
+  system: 3-D Secure Product Integration Testing (PIT)
+  frictionless_status_by_expiry_month:
+    - {month: "01", status: Y, meaning: Fully authenticated}
+    - {month: "02", status: N, meaning: Not authenticated}
+    - {month: "03", status: U, meaning: Unknown authentication status}
+    - {month: "04", status: A, meaning: Attempted authentication}
+    - {month: "05", status: D, meaning: Decoupled authentication}
+    - {month: "06", status: R, meaning: Transaction rejected}
+    - {month: "07", status: E, meaning: Unknown error performing 3DS checks}
+    - {month: "08", status: E, meaning: Error - Directory Server timeout}
+    - {month: "09", status: E, meaning: Error - corrupt Directory Server response}
+    - {month: "10", status: I, meaning: Information only}
+    - {month: "11", status: U, meaning: Cardholder not enrolled (error 13)}
+    - {month: "12", status: C, meaning: Frictionless not possible - challenge cardholder}
+  note: Expiry month 12 simulates the challenge (non-frictionless) flow.
+apm_sandboxes:
+  - {method: PayPal, note: contact support for a PayPal test Merchant account linked to your PayPal sandbox}
+  - {method: Amazon Pay, note: contact support for an Amazon Pay test Merchant account linked to your Amazon Pay sandbox}

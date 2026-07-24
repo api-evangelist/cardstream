@@ -1,0 +1,52 @@
+generated: '2026-07-24'
+method: searched
+source: https://guides.gitbook.io/integrationguide/references/response-and-advice-codes/response-codes/gateway-response-codes
+docs: https://guides.gitbook.io/integrationguide/references/response-and-advice-codes/response-codes
+format: gateway-response-codes
+note: >-
+  Gateway-level errors (as opposed to acquirer decline codes in
+  cardstream-decline-codes.yml). Returned in the responseCode field with a
+  human-readable responseMessage. Not RFC 9457 problem+json - the Gateway is a
+  form-post API returning URL-encoded name/value pairs. General error codes
+  (65536-65791) are enumerated; the remaining ranges are documented as code
+  families in the guide.
+envelope:
+  response_code_field: responseCode
+  response_message_field: responseMessage
+  content_type: application/x-www-form-urlencoded
+code_ranges:
+  - {range: "65536-65791", family: General Error Codes, docs: https://guides.gitbook.io/integrationguide/references/response-and-advice-codes/response-codes/gateway-response-codes/general-error-codes.md}
+  - {range: "65792-65823", family: 3-D Secure Error Codes}
+  - {range: "65824-65885", family: Remoted Checkout Processing Error Codes}
+  - {range: "65856-65887", family: Risk Check Processing Error Codes}
+  - {range: "66048-66303, 66560-66815", family: Missing Request Field Error Codes}
+  - {range: "66304-66559, 66816-67071", family: Invalid Request Field Error Codes}
+problems:
+  - {code: 65536, title: Transaction in progress, remediation: Contact customer support if this error occurs}
+  - {code: 65537, title: A general error has occurred}
+  - {code: 65539, title: "Invalid Credentials", detail: merchantID unknown or signature does not match}
+  - {code: 65540, title: "Permission denied", detail: request sent from an unauthorised IP address}
+  - {code: 65541, title: "Action not allowed", detail: action not supported by the Acquirer or allowed for the transaction}
+  - {code: 65542, title: "Request Mismatch", detail: fields completing a request do not match initially requested values}
+  - {code: 65543, title: "Request Ambiguous", detail: mutually exclusive fields included}
+  - {code: 65544, title: "Request Malformed", detail: could not parse the request data}
+  - {code: 65545, title: Suspended Merchant account}
+  - {code: 65546, title: Currency not supported by Merchant}
+  - {code: 65548, title: Database error}
+  - {code: 65549, title: Payment processor communications error}
+  - {code: 65550, title: Payment processor error}
+  - {code: 65552, title: Internal Gateway error}
+  - {code: 65553, title: Encryption error}
+  - {code: 65554, title: "Duplicate request", detail: See Duplicate Transaction Checking (duplicateDelay/transactionUnique)}
+  - {code: 65557, title: "IP Blocked", detail: request is from a banned IP address}
+  - {code: 65558, title: Primary IP blocked}
+  - {code: 65559, title: Secondary IP blocked}
+  - {code: 65561, title: Unsupported Card Type}
+  - {code: 65563, title: Request not supported}
+  - {code: 65564, title: "Request expired", detail: information too old to complete}
+  - {code: 65565, title: "Request retry", detail: the request can be retried later}
+  - {code: 65566, title: "Invalid card number", detail: a test card was used on a live Merchant Account}
+  - {code: 65567, title: Unsupported card issuing country}
+  - {code: 65573, title: "Amounts error", detail: provided transaction amounts do not tally}
+  - {code: 65580, title: General Error Code 65580, detail: Added in guide V4.24 (2026-05-25)}
+  - {code: 66311, title: Invalid Test Amount, detail: test amount outside the simulator ranges}

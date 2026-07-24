@@ -1,0 +1,27 @@
+generated: '2026-07-24'
+method: probed
+source: live probes of the Gateway and website hosts
+note: >-
+  No /.well-known/ discovery documents are published on any Cardstream host. The
+  Gateway is a form-post API with no OAuth2/OIDC surface, so openid-configuration
+  and oauth-authorization-server are absent by design. Recorded here as verified
+  negative data (all 404 / not-resolving). No raw files saved because nothing
+  returned 200; no WellKnown catalog pointer is wired.
+hosts:
+  - host: https://gateway.cardstream.com
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/oauth-protected-resource, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+  - host: https://cardstream.com
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+  - host: https://api.cardstream.com
+    note: host does not resolve

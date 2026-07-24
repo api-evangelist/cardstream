@@ -1,0 +1,52 @@
+generated: '2026-07-24'
+method: searched
+source: https://guides.gitbook.io/integrationguide/getting-started/introduction-to-our-gateway/security-and-compliance
+note: >-
+  Standards asserted from Cardstream's published integration guide and website.
+  Cardstream processes as a PCI DSS Level 1 payment gateway and supports the
+  card-scheme and EEA/UK regulatory standards below. No OAuth2/OIDC/FAPI, SCIM,
+  FHIR, OData or JSON:API surface exists (form-post gateway, not a JSON/REST API).
+standards:
+  - id: pci-dss
+    conforms: true
+    level: "Level 1"
+    evidence: >-
+      Gateway performs PCI DSS Level 1 card processing; Hosted Payment Pages and
+      Hosted Payment Fields minimise merchant PCI scope. Security and Compliance
+      guide references PCI DSS validation requirements.
+    docs: https://guides.gitbook.io/integrationguide/getting-started/introduction-to-our-gateway/security-and-compliance
+  - id: iso-8583
+    conforms: true
+    evidence: >-
+      Authorisation response codes are the ISO 8583 (1987) 2-character response
+      codes, mapped to numeric Gateway response codes.
+    docs: https://guides.gitbook.io/integrationguide/references/response-and-advice-codes/response-codes/authorisation-response-codes
+  - id: 3-d-secure-2
+    conforms: true
+    evidence: >-
+      3-D Secure 2 authentication supported across Hosted and Direct integrations;
+      3DS v1 removed. Frictionless and challenge flows, PIT test system.
+    docs: https://guides.gitbook.io/integrationguide/gateway-functionality/features/3-d-secure-authentication
+  - id: psd2-sca
+    conforms: true
+    evidence: >-
+      PSD2 Strong Customer Authentication compliance, SCA soft-decline handling,
+      and documented SCA exemptions for EEA/UK/Monaco.
+    docs: https://guides.gitbook.io/integrationguide/references/feature-references/psd2-sca-compliance
+  - id: emv-3ds
+    conforms: true
+    evidence: 3-D Secure 2 (EMV 3DS) via Directory Server / Access Control Server flows.
+  - id: oauth2
+    conforms: false
+    evidence: No OAuth2 security scheme; auth is merchantID + signing + IP allow-list.
+  - id: openid-connect
+    conforms: false
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: >-
+      Errors are returned as URL-encoded responseCode/responseMessage form fields,
+      not application/problem+json.
+  - id: fapi
+    conforms: false
+  - id: fhir
+    conforms: false

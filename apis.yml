@@ -105,6 +105,8 @@ apis:
   - type: Documentation
     url: https://guides.gitbook.io/integrationguide/references/code-references/integration-libraries/hosted-payment-fields-library
 common:
+- type: DomainSecurity
+  url: security/cardstream-domain-security.yml
 - type: Website
   url: https://cardstream.com/
 - type: DeveloperPortal
@@ -131,6 +133,36 @@ common:
   url: https://cardstream.com/privacy-policy/
 - type: LinkedIn
   url: https://www.linkedin.com/company/cardstream
+- type: Packages
+  url: packages/cardstream-packages.yml
+- type: SDKs
+  url: packages/cardstream-packages.yml
+- type: Authentication
+  url: authentication/cardstream-authentication.yml
+- type: Conventions
+  url: conventions/cardstream-conventions.yml
+- type: Idempotency
+  url: conventions/cardstream-conventions.yml
+- type: ErrorCatalog
+  url: errors/cardstream-problem-types.yml
+- type: DeclineCodes
+  url: errors/cardstream-decline-codes.yml
+- type: Conformance
+  url: conformance/cardstream-conformance.yml
+- type: Compliance
+  url: https://guides.gitbook.io/integrationguide/getting-started/introduction-to-our-gateway/security-and-compliance
+- type: Lifecycle
+  url: lifecycle/cardstream-lifecycle.yml
+- type: ChangeLog
+  url: changelog/cardstream-changelog.yml
+- type: Sandbox
+  url: sandbox/cardstream-sandbox.yml
+- type: Components
+  url: components/cardstream-components.yml
+- type: Webhooks
+  url: asyncapi/cardstream-webhooks.yml
+- type: LLMsTxt
+  url: llms/cardstream-llms.txt
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

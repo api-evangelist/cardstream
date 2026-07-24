@@ -1,0 +1,94 @@
+generated: '2026-07-24'
+method: searched
+source: https://github.com/cardstream
+note: >-
+  Cardstream distributes its client SDKs and e-commerce modules as source on its
+  public GitHub organisation (github.com/cardstream), not via language package
+  registries. Searches of npm, Packagist, PyPI, NuGet, RubyGems and pkg.go.dev
+  returned no first-party Cardstream package, so install is by cloning/vendoring
+  the GitHub repo. All eight gateway SDKs and four e-commerce modules are official.
+packages:
+  - language: php
+    registry: github
+    name: cardstream/PHP-SDK
+    url: https://github.com/cardstream/PHP-SDK
+    install: git clone https://github.com/cardstream/PHP-SDK
+    official: true
+    category: sdk
+  - language: java
+    registry: github
+    name: cardstream/Java-SDK
+    url: https://github.com/cardstream/Java-SDK
+    install: git clone https://github.com/cardstream/Java-SDK
+    official: true
+    category: sdk
+  - language: javascript
+    registry: github
+    name: cardstream/Node-JS-SDK
+    url: https://github.com/cardstream/Node-JS-SDK
+    install: git clone https://github.com/cardstream/Node-JS-SDK
+    official: true
+    category: sdk
+  - language: go
+    registry: github
+    name: cardstream/SDK-Go
+    url: https://github.com/cardstream/SDK-Go
+    install: go get github.com/cardstream/SDK-Go
+    official: true
+    category: sdk
+  - language: ruby
+    registry: github
+    name: cardstream/SDK-Ruby
+    url: https://github.com/cardstream/SDK-Ruby
+    install: git clone https://github.com/cardstream/SDK-Ruby
+    official: true
+    category: sdk
+  - language: csharp
+    registry: github
+    name: cardstream/SDK-CSharp
+    url: https://github.com/cardstream/SDK-CSharp
+    install: git clone https://github.com/cardstream/SDK-CSharp
+    official: true
+    category: sdk
+  - language: swift
+    registry: github
+    name: cardstream/IOS-SDK
+    url: https://github.com/cardstream/IOS-SDK
+    install: git clone https://github.com/cardstream/IOS-SDK
+    official: true
+    category: sdk
+  - language: java
+    registry: github
+    name: cardstream/Android-SDK
+    url: https://github.com/cardstream/Android-SDK
+    install: git clone https://github.com/cardstream/Android-SDK
+    official: true
+    category: sdk
+  - language: php
+    registry: github
+    name: cardstream/Magento
+    url: https://github.com/cardstream/Magento
+    install: git clone https://github.com/cardstream/Magento
+    official: true
+    category: ecommerce-module
+  - language: php
+    registry: github
+    name: cardstream/WooCommerce
+    url: https://github.com/cardstream/WooCommerce
+    install: git clone https://github.com/cardstream/WooCommerce
+    official: true
+    category: ecommerce-module
+  - language: php
+    registry: github
+    name: cardstream/OpenCart
+    url: https://github.com/cardstream/OpenCart
+    install: git clone https://github.com/cardstream/OpenCart
+    official: true
+    category: ecommerce-module
+  - language: php
+    registry: github
+    name: cardstream/PrestaShop
+    url: https://github.com/cardstream/PrestaShop
+    install: git clone https://github.com/cardstream/PrestaShop
+    official: true
+    category: ecommerce-module

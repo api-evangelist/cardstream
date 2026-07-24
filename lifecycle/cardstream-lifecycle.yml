@@ -1,0 +1,31 @@
+generated: '2026-07-24'
+method: searched
+source: https://guides.gitbook.io/integrationguide/readme/changelog
+note: >-
+  Cardstream versions its Integration Guide (not the wire API) with a dated
+  changelog. There is no URL-path API version and no RFC 8594 Sunset/Deprecation
+  HTTP header support (form-post API). Integration types and features are
+  deprecated with announced dates in the changelog.
+versioning:
+  scheme: documented-guide-version
+  current: V4.24
+  current_date: '2026-05-25'
+  docs: https://guides.gitbook.io/integrationguide/readme/changelog
+deprecation:
+  policy_url: null
+  sunset_header: false
+  practice: >-
+    Deprecations are announced with effective dates in the changelog rather than
+    via a formal policy page or HTTP headers.
+  recent_deprecations:
+    - {item: "Nuapay integration type", effective: '2025-11-17', announced: '2025-09-24'}
+    - {item: "Nuapay section removed", date: '2025-11-03'}
+    - {item: "PBBA section removed", date: '2025-11-03'}
+    - {item: "3-D Secure version 1 (removed; 3DS2 only)", date: '2022-05-17'}
+sla:
+  url: null
+  note: No public SLA/uptime target published (B2B2B wholesale model).
+status_page: https://status.cardstream.com/
+data_retention:
+  transaction_and_card_data: ~13 months (acquirer may differ)
+deprecated_operations: []
