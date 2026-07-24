@@ -1,0 +1,126 @@
+aid: cardstream
+name: Cardstream
+review:
+  question: Does Cardstream expose a public developer portal and a downloadable OpenAPI/Swagger definition for its payment gateway?
+  answer: partial
+  date: '2026-07-24'
+  reviewer: API Evangelist
+findings:
+  summary: |
+    Cardstream is an independent United Kingdom white-label payment gateway. It
+    publishes a genuine, confirmed public developer portal at
+    https://cardstream.com/developer/ (HTTP 200) with sections for Integrations,
+    SDKs, Sample Codes, Logos and eCommerce Modules, backed by a complete public
+    Integration Guide hosted on GitBook at https://guides.gitbook.io/integrationguide/
+    (V4.24, exposes an llms.txt index and per-page .md sources). The developer
+    surface is REAL and richly documented, but it is a classic form-post gateway
+    API rather than a JSON/REST API: requests are HTTP POST with
+    Content-Type application/x-www-form-urlencoded name/value pairs (RFC 1738,
+    PHP http_build_query style for nested fields). NO downloadable OpenAPI or
+    Swagger definition is published. Probes for /openapi.json and /swagger.json on
+    gateway.cardstream.com and api.cardstream.com all returned 404 (api.cardstream.com
+    does not resolve). Zero OpenAPI/Swagger specs were harvested (specs_count = 0);
+    none exist to harvest without fabrication.
+  integrationMethods:
+    - name: Hosted Integration
+      note: Hosted Payment Pages (HPP) and Hosted Payment Fields; browser POSTs to the Gateway, result POSTed back to redirectURL.
+      baseURL: https://gateway.cardstream.com/hosted/
+      documented: true
+    - name: Direct Integration
+      note: Server-to-server URL-encoded POST for sales, refunds, cancellations, 3-D Secure 2, tokenisation and management requests.
+      baseURL: https://gateway.cardstream.com/direct/
+      documented: true
+    - name: Batch Integration
+      note: Enhancement to Direct using multipart/mixed to queue multiple transactions; returns a batch reference for a downloadable status file. No interactive (3DS/wallet) flows.
+      baseURL: https://gateway.cardstream.com/direct/
+      documented: true
+  authModel:
+    scheme: form-post credentials + HMAC message signing + IP allow-listing
+    details: |
+      Every request carries a merchantID. Optional merchantPwd password
+      authentication is supported but discouraged for browser-posted forms.
+      Message signing uses a per-merchant signing secret phrase configured in the
+      Merchant Management System (MMS): the client sends a `signature` field
+      containing a hash of the serialised request plus the secret; the Gateway
+      re-generates and compares the hash, and returns a signed response and signed
+      callback POSTs. Signing may be mandatory on some merchant accounts. Merchant
+      IP allow-lists (separate lists for standard vs advanced/refund requests) can
+      further restrict access. No OAuth2, OpenID Connect or mTLS/FAPI surface: probes
+      for /.well-known/openid-configuration and /.well-known/oauth-authorization-server
+      on gateway.cardstream.com both returned 404.
+  transports:
+    - protocol: REST
+      documented: false
+      note: The Gateway is not a JSON/REST API. It accepts application/x-www-form-urlencoded HTTP POST and returns URL-encoded responses.
+    - protocol: HTTP form-post
+      scheme: https
+      baseURL: https://gateway.cardstream.com/
+      documented: true
+      note: Hosted (/hosted/) and Direct (/direct/) endpoints, both live (HTTP 200). Test/3DS host test.3ds-pit.com appears in the published SDK sample code.
+    - protocol: WebSocket
+      documented: false
+    - protocol: GraphQL
+      documented: false
+  webhooksEvents: |
+    Asynchronous notification is handled via callback URLs ("Receipts and
+    Notifications" feature). When message signing is enabled, data POSTed to any
+    callback URL is signed. There is no AsyncAPI document and no named event
+    catalog; callbacks carry the same URL-encoded response fields.
+  sdks:
+    - PHP (github.com/cardstream/PHP-SDK)
+    - Java (github.com/cardstream/Java-SDK)
+    - Node.js (github.com/cardstream/Node-JS-SDK)
+    - Go (github.com/cardstream/SDK-Go)
+    - Ruby (github.com/cardstream/SDK-Ruby)
+    - C#/.NET (github.com/cardstream/SDK-CSharp)
+    - iOS/Swift (github.com/cardstream/IOS-SDK)
+    - Android/Java (github.com/cardstream/Android-SDK)
+    - "eCommerce modules: Magento, WooCommerce, OpenCart, PrestaShop"
+  postman: none-found
+  graphql: none-found
+  homeMarket: United Kingdom
+  positioning: |
+    The UK's only independent white-label payment gateway, sold wholesale to banks,
+    PSPs, ISOs, acquirers and software vendors rather than direct to merchants; no
+    public retail pricing page (probe returned 404), consistent with a B2B2B
+    reseller model.
+sources:
+  - url: https://cardstream.com/
+    type: Website
+    note: HTTP 200. Homepage; independent UK white-label payment gateway.
+  - url: https://cardstream.com/developer/
+    type: DeveloperPortal
+    note: HTTP 200. Developer landing page with Integrations, SDKs, Sample Codes, Logos, eCommerce Modules.
+  - url: https://guides.gitbook.io/integrationguide/
+    type: Documentation
+    note: HTTP 200. GitBook Integration Guide V4.24; llms.txt index; per-page .md variants.
+  - url: https://guides.gitbook.io/integrationguide/getting-started/setting-up-your-integration/authentication
+    type: Authentication
+    note: merchantID + optional merchantPwd, HMAC message signing (signature field), IP allow-listing.
+  - url: https://guides.gitbook.io/integrationguide/getting-started/setting-up-your-integration/integration-details
+    type: Documentation
+    note: HTTP form-post application/x-www-form-urlencoded; Hosted, Direct and Batch request formats.
+  - url: https://github.com/cardstream
+    type: GitHubOrganization
+    note: 12 public repos - SDKs (PHP/Java/Node/Go/Ruby/C#/iOS/Android) and e-commerce modules. No OpenAPI in the org.
+  - url: https://status.cardstream.com/
+    type: StatusPage
+    note: HTTP 200. Gateway status page.
+  - url: https://mms.cardstream.com/
+    type: Login
+    note: HTTP 200. Merchant Management System (MMS) portal.
+  - url: https://gateway.cardstream.com/hosted/
+    type: BaseURL
+    note: HTTP 200. Production Hosted Integration endpoint.
+  - url: https://gateway.cardstream.com/direct/
+    type: BaseURL
+    note: HTTP 200. Production Direct Integration endpoint.
+harvest:
+  openapiHarvested: false
+  specsCount: 0
+  reason: |
+    Cardstream publishes no OpenAPI/Swagger definition. The gateway is a
+    form-post (application/x-www-form-urlencoded) API documented in prose on
+    GitBook. Candidate spec URLs (/openapi.json, /swagger.json on both the gateway
+    and api hosts) returned 404 or did not resolve. Saving a spec would require
+    fabrication, so none was written.

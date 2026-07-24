@@ -1,0 +1,136 @@
+aid: cardstream
+url: https://raw.githubusercontent.com/api-evangelist/cardstream/refs/heads/main/apis.yml
+name: Cardstream
+kind: company
+description: Cardstream is an independent United Kingdom payment gateway providing a
+  white-label payment platform that banks, PSPs, ISOs, acquirers and software companies
+  resell under their own brand. It connects merchants to card schemes (Visa, Mastercard),
+  digital wallets and 150+ Alternative Payment Methods from a single integration, with
+  PCI DSS Level 1 processing, tokenisation, recurring billing, 3-D Secure 2 authentication,
+  risk and fraud checking, and dynamic currency conversion. Its developer surface is a
+  mature form-post gateway API exposed through three integration methods — Hosted
+  (Hosted Payment Pages and Hosted Payment Fields), Direct (server-to-server), and
+  Batch — documented in a public GitBook integration guide and supported by SDKs for
+  PHP, Java, Node.js, Go, Ruby, C#, iOS and Android plus e-commerce modules. Requests
+  are HTTP POST with application/x-www-form-urlencoded fields authenticated by merchantID
+  plus optional password, HMAC message signing and IP allow-listing; the gateway does
+  not publish a downloadable OpenAPI/Swagger definition or a JSON/REST surface.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Payments
+- United Kingdom
+- Payment Gateway
+- Payment Processing
+- White Label
+- Card Payments
+- Acquiring
+- Hosted Payment Pages
+- Tokenization
+- 3-D Secure
+- Alternative Payment Methods
+- Subscriptions
+created: '2026-07-24'
+modified: '2026-07-24'
+specificationVersion: '0.19'
+apis:
+- aid: cardstream:cardstream-gateway-hosted
+  name: Cardstream Gateway - Hosted Integration
+  description: Hosted Payment Pages (HPP) integration. The merchant's browser POSTs a
+    URL-encoded request to the Gateway, which collects and processes the cardholder's
+    payment details on a Cardstream-hosted page (lightbox, redirect or iframe) and POSTs
+    the signed result back to the merchant's redirectURL. Removes cardholder data from
+    the merchant's PCI scope.
+  humanURL: https://guides.gitbook.io/integrationguide/getting-started/introduction-to-our-gateway/integration-methods
+  baseURL: https://gateway.cardstream.com/hosted/
+  tags:
+  - Hosted Payment Pages
+  - Card Payments
+  properties:
+  - type: Documentation
+    url: https://guides.gitbook.io/integrationguide/
+  - type: APIReference
+    url: https://guides.gitbook.io/integrationguide/gateway-functionality/features/new-transactions/request-fields
+- aid: cardstream:cardstream-gateway-direct
+  name: Cardstream Gateway - Direct Integration
+  description: Server-to-server integration. The merchant collects payment details on
+    its own secure server and sends a URL-encoded HTTP POST directly to the Gateway for
+    processing, supporting sales, refunds, cancellations, 3-D Secure 2, tokenisation and
+    management requests. Optionally used with Hosted Payment Fields so sensitive card
+    data is tokenised by the Gateway before the Direct request.
+  humanURL: https://guides.gitbook.io/integrationguide/getting-started/introduction-to-our-gateway/integration-methods
+  baseURL: https://gateway.cardstream.com/direct/
+  tags:
+  - Card Payments
+  - Refunds
+  - 3-D Secure
+  - Tokenization
+  properties:
+  - type: Documentation
+    url: https://guides.gitbook.io/integrationguide/
+  - type: APIReference
+    url: https://guides.gitbook.io/integrationguide/gateway-functionality/features/new-transactions/request-fields
+  - type: Authentication
+    url: https://guides.gitbook.io/integrationguide/getting-started/setting-up-your-integration/authentication
+- aid: cardstream:cardstream-gateway-batch
+  name: Cardstream Gateway - Batch Integration
+  description: An enhancement to the Direct Integration that submits multiple transactions
+    in a single multipart/mixed HTTP POST. The Gateway queues the transactions and returns
+    a batch reference number used to download a status file; useful for capturing many
+    transactions or collecting recurring subscription and loan-repayment charges. Does
+    not support interactive flows such as 3-D Secure or wallet checkouts.
+  humanURL: https://guides.gitbook.io/integrationguide/getting-started/introduction-to-our-gateway/integration-methods
+  baseURL: https://gateway.cardstream.com/direct/
+  tags:
+  - Batch
+  - Subscriptions
+  - Recurring
+  properties:
+  - type: Documentation
+    url: https://guides.gitbook.io/integrationguide/
+  - type: APIReference
+    url: https://guides.gitbook.io/integrationguide/getting-started/setting-up-your-integration/integration-details
+- aid: cardstream:cardstream-hosted-payment-fields
+  name: Cardstream Hosted Payment Fields
+  description: A client-side library where only the individual input fields that collect
+    sensitive cardholder data are hosted by the Gateway while the rest of the payment
+    form is served by the merchant. On submission the Gateway returns a payment token
+    representing the card data, which the merchant then processes via the Direct
+    Integration without ever handling raw cardholder data.
+  humanURL: https://guides.gitbook.io/integrationguide/references/code-references/integration-libraries/hosted-payment-fields-library
+  baseURL: https://gateway.cardstream.com/hosted/
+  tags:
+  - Tokenization
+  - Hosted Payment Pages
+  properties:
+  - type: Documentation
+    url: https://guides.gitbook.io/integrationguide/references/code-references/integration-libraries/hosted-payment-fields-library
+common:
+- type: Website
+  url: https://cardstream.com/
+- type: DeveloperPortal
+  url: https://cardstream.com/developer/
+- type: Documentation
+  url: https://guides.gitbook.io/integrationguide/
+- type: APIReference
+  url: https://guides.gitbook.io/integrationguide/gateway-functionality/features/new-transactions/request-fields
+- type: GettingStarted
+  url: https://guides.gitbook.io/integrationguide/getting-started/setting-up-your-integration
+- type: Authentication
+  url: https://guides.gitbook.io/integrationguide/getting-started/setting-up-your-integration/authentication
+- type: GitHubOrganization
+  url: https://github.com/cardstream
+- type: StatusPage
+  url: https://status.cardstream.com/
+- type: HelpCenter
+  url: https://support.cardstream.com/hc/
+- type: Login
+  url: https://mms.cardstream.com/
+- type: Blog
+  url: https://cardstream.com/blog/
+- type: PrivacyPolicy
+  url: https://cardstream.com/privacy-policy/
+- type: LinkedIn
+  url: https://www.linkedin.com/company/cardstream
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
