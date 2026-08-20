@@ -26,6 +26,19 @@ tags:
 - Acquiring
 - Hosted Payment Pages
 - Tokenization
+- 3D Secure
+- Alternative Payment Methods
+- Subscription
+tags_raw:
+- Payments
+- United Kingdom
+- Payment Gateway
+- Payment Processing
+- White Label
+- Card Payments
+- Acquiring
+- Hosted Payment Pages
+- Tokenization
 - 3-D Secure
 - Alternative Payment Methods
 - Subscriptions
@@ -62,6 +75,11 @@ apis:
   tags:
   - Card Payments
   - Refunds
+  - 3D Secure
+  - Tokenization
+  tags_raw:
+  - Card Payments
+  - Refunds
   - 3-D Secure
   - Tokenization
   properties:
@@ -81,6 +99,10 @@ apis:
   humanURL: https://guides.gitbook.io/integrationguide/getting-started/introduction-to-our-gateway/integration-methods
   baseURL: https://gateway.cardstream.com/direct/
   tags:
+  - Batch
+  - Subscription
+  - Recurring
+  tags_raw:
   - Batch
   - Subscriptions
   - Recurring
