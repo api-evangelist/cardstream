@@ -15,6 +15,17 @@ description: Cardstream is an independent United Kingdom payment gateway providi
   are HTTP POST with application/x-www-form-urlencoded fields authenticated by merchantID
   plus optional password, HMAC message signing and IP allow-listing; the gateway does
   not publish a downloadable OpenAPI/Swagger definition or a JSON/REST surface.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
 - Payments
