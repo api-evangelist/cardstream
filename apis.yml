@@ -68,7 +68,7 @@ tags_raw:
 - Alternative Payment Methods
 - Subscriptions
 created: '2026-07-24'
-modified: '2026-07-24'
+modified: '2026-10-06'
 specificationVersion: '0.23'
 apis:
 - aid: cardstream:cardstream-gateway-hosted
@@ -152,6 +152,10 @@ apis:
   - type: Documentation
     url: https://guides.gitbook.io/integrationguide/references/code-references/integration-libraries/hosted-payment-fields-library
 common:
+- url: https://cardstream.com/news/
+  type: Blog
+- url: https://cardstream.com/feed/
+  type: BlogRSS
 - type: DomainSecurity
   url: security/cardstream-domain-security.yml
 - type: Website
