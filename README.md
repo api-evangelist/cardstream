@@ -1,4 +1,4 @@
-# Cardstream (cardstream)
+# Cardstream
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,102 +64,103 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Cardstream is an independent United Kingdom payment gateway providing a white-label payment platform that banks, PSPs, ISOs, acquirers and software companies resell under their own brand. It connects merchants to the card schemes, digital wallets and 150+ Alternative Payment Methods from a single integration, with PCI DSS Level 1 processing, tokenisation, recurring billing, 3-D Secure 2, risk/fraud checking and dynamic currency conversion. Its developer surface is a mature form-post gateway API — not a JSON/REST API and with no downloadable OpenAPI — exposed through Hosted, Direct and Batch integration methods and supported by SDKs across eight languages plus e-commerce modules.
+Cardstream is an independent United Kingdom payment gateway providing a white-label payment platform that banks, PSPs, ISOs, acquirers and software companies resell under their own brand. It connects merchants to card schemes (Visa, Mastercard), digital wallets and 150+ Alternative Payment Methods from a single integration, with PCI DSS Level 1 processing, tokenisation, recurring billing, 3-D Secure 2 authentication, risk and fraud checking, and dynamic currency conversion. Its developer surface is a mature form-post gateway API exposed through three integration methods — Hosted (Hosted Payment Pages and Hosted Payment Fields), Direct (server-to-server), and Batch — documented in a public GitBook integration guide and supported by SDKs for PHP, Java, Node.js, Go, Ruby, C#, iOS and Android plus e-commerce modules. Requests are HTTP POST with application/x-www-form-urlencoded fields authenticated by merchantID plus optional password, HMAC message signing and IP allow-listing; the gateway does not publish a downloadable OpenAPI/Swagger definition or a JSON/REST surface.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/cardstream/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/cardstream/refs/heads/main/apis.yml)
+**Areas:** Payments · United Kingdom · Payment Gateway · Payment Processing · White Label · Card Payments · Acquiring · Hosted Payment Pages · Tokenization · 3D Secure · Alternative Payment Methods · Subscription
 
-## Tags
+## Cardstream on APIs.io
 
-- Payments
-- United Kingdom
-- Payment Gateway
-- Payment Processing
-- White Label
-- Card Payments
-- Acquiring
-- Hosted Payment Pages
-- Tokenization
-- 3-D Secure
-- Alternative Payment Methods
-- Subscriptions
+Everything profiled for Cardstream is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/cardstream/](https://apis.io/providers/cardstream/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (4)
 
-- **Created:** 2026-07-24
-- **Modified:** 2026-07-24
+- [Cardstream Gateway - Hosted Integration](https://apis.io/apis/cardstream/cardstream-gateway-hosted/) — Hosted Payment Pages (HPP) integration. The merchant's browser POSTs a URL-encoded request to the Gateway, which collects and processes the cardholder's…
+- [Cardstream Gateway - Direct Integration](https://apis.io/apis/cardstream/cardstream-gateway-direct/) — Server-to-server integration. The merchant collects payment details on its own secure server and sends a URL-encoded HTTP POST directly to the Gateway for…
+- [Cardstream Gateway - Batch Integration](https://apis.io/apis/cardstream/cardstream-gateway-batch/) — An enhancement to the Direct Integration that submits multiple transactions in a single multipart/mixed HTTP POST. The Gateway queues the transactions and…
+- [Cardstream Hosted Payment Fields](https://apis.io/apis/cardstream/cardstream-hosted-payment-fields/) — A client-side library where only the individual input fields that collect sensitive cardholder data are hosted by the Gateway while the rest of the payment…
 
-## APIs
+### Published properties
 
-### Cardstream Gateway - Hosted Integration
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-Hosted Payment Pages (HPP) integration. The customer's browser POSTs a URL-encoded request to the Gateway, which collects and processes payment details on a Cardstream-hosted page (lightbox, redirect or iframe) and POSTs the signed result back to the merchant's `redirectURL`, keeping cardholder data out of the merchant's PCI scope.
+#### AsyncAPI (1)
 
-- **Human URL:** [https://guides.gitbook.io/integrationguide/getting-started/introduction-to-our-gateway/integration-methods](https://guides.gitbook.io/integrationguide/getting-started/introduction-to-our-gateway/integration-methods)
-- **Base URL:** `https://gateway.cardstream.com/hosted/`
+Event-driven and webhook contracts.
 
-#### Properties
+- [Cardstream Webhooks](https://apis.io/asyncapis/cardstream/cardstream-webhooks/)
 
-- [Documentation](https://guides.gitbook.io/integrationguide/)
-- [API Reference](https://guides.gitbook.io/integrationguide/gateway-functionality/features/new-transactions/request-fields)
+#### Security (2)
 
-### Cardstream Gateway - Direct Integration
+Authentication, trust centre, and vulnerability disclosure.
 
-Server-to-server integration. The merchant collects payment details on its own secure server and sends a URL-encoded HTTP POST directly to the Gateway, supporting sales, refunds, cancellations, 3-D Secure 2, tokenisation and management requests. Can be paired with Hosted Payment Fields so card data is tokenised by the Gateway first.
+- [Cardstream Authentication](https://apis.io/security/cardstream/cardstream-authentication/)
+- [Cardstream Domain Security](https://apis.io/security/cardstream/cardstream-domain-security/)
 
-- **Human URL:** [https://guides.gitbook.io/integrationguide/getting-started/introduction-to-our-gateway/integration-methods](https://guides.gitbook.io/integrationguide/getting-started/introduction-to-our-gateway/integration-methods)
-- **Base URL:** `https://gateway.cardstream.com/direct/`
+## Where to find this API
 
-#### Properties
-
-- [Documentation](https://guides.gitbook.io/integrationguide/)
-- [API Reference](https://guides.gitbook.io/integrationguide/gateway-functionality/features/new-transactions/request-fields)
-- [Authentication](https://guides.gitbook.io/integrationguide/getting-started/setting-up-your-integration/authentication)
-
-### Cardstream Gateway - Batch Integration
-
-An enhancement to the Direct Integration that submits multiple transactions in one `multipart/mixed` HTTP POST. The Gateway queues them and returns a batch reference used to download a status file — useful for capturing many transactions or collecting recurring subscription and loan-repayment charges. No interactive (3DS/wallet) flows.
-
-- **Human URL:** [https://guides.gitbook.io/integrationguide/getting-started/introduction-to-our-gateway/integration-methods](https://guides.gitbook.io/integrationguide/getting-started/introduction-to-our-gateway/integration-methods)
-- **Base URL:** `https://gateway.cardstream.com/direct/`
-
-#### Properties
-
-- [Documentation](https://guides.gitbook.io/integrationguide/)
-- [API Reference](https://guides.gitbook.io/integrationguide/getting-started/setting-up-your-integration/integration-details)
-
-### Cardstream Hosted Payment Fields
-
-A client-side library where only the input fields collecting sensitive cardholder data are hosted by the Gateway while the rest of the payment form is served by the merchant. On submission the Gateway returns a payment token, which the merchant processes via the Direct Integration — never handling raw card data.
-
-- **Human URL:** [https://guides.gitbook.io/integrationguide/references/code-references/integration-libraries/hosted-payment-fields-library](https://guides.gitbook.io/integrationguide/references/code-references/integration-libraries/hosted-payment-fields-library)
-- **Base URL:** `https://gateway.cardstream.com/hosted/`
-
-#### Properties
-
-- [Documentation](https://guides.gitbook.io/integrationguide/references/code-references/integration-libraries/hosted-payment-fields-library)
-
-## Authentication
-
-The Gateway is a form-post API: HTTP POST with `Content-Type: application/x-www-form-urlencoded`. Every request carries a `merchantID`; security is provided by optional `merchantPwd` password authentication, HMAC message signing (a `signature` field hashing the serialised request with a per-merchant signing secret, with signed responses and signed callbacks), and IP allow-listing. There is no OAuth2/OIDC or mTLS surface, and no downloadable OpenAPI/Swagger definition.
-
-## SDKs & Modules
-
-PHP, Java, Node.js, Go, Ruby, C#/.NET, iOS (Swift) and Android SDKs, plus Magento, WooCommerce, OpenCart and PrestaShop e-commerce modules — all on the [Cardstream GitHub organization](https://github.com/cardstream).
-
-## Common Properties
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://cardstream.com/)
-- [Developer Portal](https://cardstream.com/developer/)
 - [Documentation](https://guides.gitbook.io/integrationguide/)
-- [Getting Started](https://guides.gitbook.io/integrationguide/getting-started/setting-up-your-integration)
-- [GitHub Organization](https://github.com/cardstream)
-- [Status Page](https://status.cardstream.com/)
-- [Help Center](https://support.cardstream.com/hc/)
-- [Login (MMS)](https://mms.cardstream.com/)
-- [Blog](https://cardstream.com/blog/)
-- [Privacy Policy](https://cardstream.com/privacy-policy/)
+- [Getting started](https://guides.gitbook.io/integrationguide/getting-started/setting-up-your-integration)
+- [API reference](https://guides.gitbook.io/integrationguide/gateway-functionality/features/new-transactions/request-fields)
+- [Blog](https://cardstream.com/news/)
+- [Compliance](https://guides.gitbook.io/integrationguide/getting-started/introduction-to-our-gateway/security-and-compliance)
+- [Privacy policy](https://cardstream.com/privacy-policy/)
+- [GitHub](https://github.com/cardstream)
+- [Status](https://status.cardstream.com/)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 47.0** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 78.6 |
+| Contract quality | 39.0 |
+| Contract governance | 18.2 |
+| Operational transparency | 42.1 |
+| Developer ergonomics | 71.4 |
+| Access clarity | 25.0 |
+
+**Agent readiness 25.9** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | documented (partial credit) |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | — |
+| Event Surface Described | yes |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | na |
+
+**Regulatory alignment 35.7** — Payments
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/cardstream/](https://apis.io/providers/cardstream/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Cardstream: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/cardstream/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
